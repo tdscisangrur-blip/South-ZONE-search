@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>South Zone Meter Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            text-align: center;
+            padding: 30px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>South Zone Meter Search</h2>
+    <input type="text" id="meterInput" placeholder="Enter Meter Number">
+    <br>
+    <button onclick="searchMeter()">Search</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+// Sample data (Replace with full data later)
+const meterData = [
+    {
+        meter: "473811",
+        name: "Mr. BALWANT SINGH",
+        address: "VPO BHAWANIGARH, DISTT SANGRUR, PUNJAB",
+        division: "BHAWANIGARH SUB DIVISION",
+        circle: "SANGRUR",
+        status: "P",
+        account: "1954723000"
+    }
+];
+
+function searchMeter() {
+    const input = document.getElementById("meterInput").value.trim();
+    const resultDiv = document.getElementById("result");
+    
+    const found = meterData.find(m => m.meter === input);
+
+    if (found) {
+        resultDiv.innerHTML = `
+            <p><span class="label">Consumer Name:</span> ${found.name}</p>
+            <p><span class="label">Address:</span> ${found.address}</p>
+            <p><span class="label">Division:</span> ${found.division}</p>
+            <p><span class="label">Circle:</span> ${found.circle}</p>
+            <p><span class="label">Status:</span> ${found.status}</p>
+            <p><span class="label">Account ID:</span> ${found.account}</p>
+        `;
+    } else {
+        resultDiv.innerHTML = "<p><b>Meter Not Found</b></p>";
+    }
+}
+</script>
+
+</body>
+</html>
