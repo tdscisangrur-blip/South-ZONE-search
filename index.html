@@ -1,89 +1,122 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>South Zone Meter Search</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-            text-align: center;
-            padding: 30px;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 400px;
-            margin: auto;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .result {
-            margin-top: 20px;
-            text-align: left;
-        }
-        .label {
-            font-weight: bold;
-        }
-    </style>
+<title>South Zone Meter Search</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+padding:30px;
+}
+
+.container{
+background:white;
+padding:20px;
+border-radius:10px;
+max-width:600px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input{
+width:90%;
+padding:12px;
+font-size:16px;
+margin:10px;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:5px;
+}
+
+table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+td,th{
+border:1px solid #ddd;
+padding:8px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <h2>South Zone Meter Search</h2>
-    <input type="text" id="meterInput" placeholder="Enter Meter Number">
-    <br>
-    <button onclick="searchMeter()">Search</button>
 
-    <div class="result" id="result"></div>
+<h2>South Zone Meter Search</h2>
+
+<input type="text" id="search" placeholder="Enter Meter / Account / Name / Mobile">
+
+<button onclick="search()">Search</button>
+
+<div id="result"></div>
+
 </div>
 
 <script>
-// Sample data (Replace with full data later)
-const meterData = [
-    {
-        meter: "473811",
-        name: "Mr. BALWANT SINGH",
-        address: "VPO BHAWANIGARH, DISTT SANGRUR, PUNJAB",
-        division: "BHAWANIGARH SUB DIVISION",
-        circle: "SANGRUR",
-        status: "P",
-        account: "1954723000"
-    }
-];
 
-function searchMeter() {
-    const input = document.getElementById("meterInput").value.trim();
-    const resultDiv = document.getElementById("result");
-    
-    const found = meterData.find(m => m.meter === input);
+let data=[];
 
-    if (found) {
-        resultDiv.innerHTML = `
-            <p><span class="label">Consumer Name:</span> ${found.name}</p>
-            <p><span class="label">Address:</span> ${found.address}</p>
-            <p><span class="label">Division:</span> ${found.division}</p>
-            <p><span class="label">Circle:</span> ${found.circle}</p>
-            <p><span class="label">Status:</span> ${found.status}</p>
-            <p><span class="label">Account ID:</span> ${found.account}</p>
-        `;
-    } else {
-        resultDiv.innerHTML = "<p><b>Meter Not Found</b></p>";
-    }
+fetch("sangrur_circle_meter_search_data.csv")
+.then(response=>response.text())
+.then(text=>{
+
+let rows=text.split("\n");
+
+for(let i=1;i<rows.length;i++){
+
+let cols=rows[i].split(",");
+
+data.push(cols);
+
 }
+
+});
+
+
+function search(){
+
+let input=document.getElementById("search").value.toLowerCase();
+
+let html="<table><tr><th>Account</th><th>Name</th><th>Address</th><th>Meter</th><th>Mobile</th></tr>";
+
+for(let i=0;i<data.length;i++){
+
+let row=data[i].join(" ").toLowerCase();
+
+if(row.includes(input)){
+
+html+="<tr>";
+
+html+="<td>"+data[i][0]+"</td>";
+html+="<td>"+data[i][1]+"</td>";
+html+="<td>"+data[i][2]+"</td>";
+html+="<td>"+data[i][5]+"</td>";
+html+="<td>"+data[i][6]+"</td>";
+
+html+="</tr>";
+
+}
+
+}
+
+html+="</table>";
+
+document.getElementById("result").innerHTML=html;
+
+}
+
 </script>
 
 </body>
