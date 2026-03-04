@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>South Zone Meter Search</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -17,7 +19,7 @@ padding:30px;
 background:white;
 padding:20px;
 border-radius:10px;
-max-width:700px;
+max-width:600px;
 margin:auto;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
@@ -27,15 +29,6 @@ width:90%;
 padding:12px;
 font-size:16px;
 margin:10px;
-}
-
-button{
-padding:10px 20px;
-font-size:16px;
-background:#007bff;
-color:white;
-border:none;
-border-radius:5px;
 }
 
 table{
@@ -50,6 +43,7 @@ padding:8px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -59,6 +53,7 @@ padding:8px;
 <h2>South Zone Meter Search</h2>
 
 <select id="division">
+
 <option value="">All Divisions</option>
 <option>CITY SUNAM</option>
 <option>DHURI</option>
@@ -66,9 +61,8 @@ padding:8px;
 <option>PATTRAN</option>
 <option>SANGRUR</option>
 <option>SUBURBAN SUNAM</option>
-</select>
 
-<input type="text" id="search" placeholder="Enter Meter / Account / Name / Mobile">
+</select>
 
 <input type="text" id="search" onkeyup="search()" placeholder="Enter Meter / Account / Name / Mobile">
 
@@ -88,7 +82,7 @@ let rows=text.split("\n");
 
 for(let i=1;i<rows.length;i++){
 
-let cols = rows[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+let cols = rows[i].split(",");
 
 data.push(cols);
 
