@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <title>South Zone Meter Search</title>
@@ -29,6 +30,16 @@ width:90%;
 padding:12px;
 font-size:16px;
 margin:10px;
+}
+
+button{
+padding:12px 20px;
+font-size:16px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
 }
 
 table{
@@ -64,7 +75,9 @@ padding:8px;
 
 </select>
 
-<input type="text" id="search" onkeyup="search()" placeholder="Enter Meter / Account / Name / Mobile">
+<input type="text" id="search" placeholder="Enter Meter / Account / Name / Mobile">
+
+<button onclick="search()">Search</button>
 
 <div id="result"></div>
 
@@ -132,4 +145,5 @@ document.getElementById("result").innerHTML=html;
 </script>
 
 </body>
+
 </html>
