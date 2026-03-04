@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>South Zone Meter Search</title>
 
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+}
+
+.box{
+background:white;
+padding:30px;
+margin:50px auto;
+width:350px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+input{
+width:90%;
+padding:10px;
+margin:10px;
+font-size:16px;
+}
+
+button{
+background:#007bff;
+color:white;
+border:none;
+padding:10px 20px;
+font-size:16px;
+cursor:pointer;
+}
+
+table{
+margin:auto;
+margin-top:30px;
+border-collapse:collapse;
+}
+
+td,th{
+border:1px solid #ccc;
+padding:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>South Zone Meter Search</h2>
+
+<input id="searchInput" placeholder="Enter Meter Number">
+
+<br>
+
+<button onclick="search()">Search</button>
+
+</div>
+
+<div id="result"></div>
+
+<script>
+
+let data=[];
+
+fetch('data.csv')
+.then(response => response.text())
+.then(text => {
+
+let rows=text.split('\n');
+
+for(let i=1;i<rows.length;i++){
+
+let cols=rows[i].split(',');
+
+data.push(cols);
+
+}
+
+});
+
+function search(){
+
+let value=document.getElementById("searchInput").value;
+
+let html="<table>";
+
+for(let i=0;i<data.length;i++){
+
+if(data[i][12]==value){
+
+html+="<tr>";
+
+for(let j=0;j<data[i].length;j++){
+
+html+="<td>"+data[i][j]+"</td>";
+
+}
+
+html+="</tr>";
+
+}
+
+}
+
+html+="</table>";
+
+document.getElementById("result").innerHTML=html;
+
+}
+
+</script>
+
+</body>
+
+</html>
