@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
 <title>South Zone Meter Search</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -33,7 +30,7 @@ margin:10px;
 }
 
 button{
-padding:12px 20px;
+padding:12px 25px;
 font-size:16px;
 background:#007bff;
 color:white;
@@ -48,13 +45,12 @@ margin-top:20px;
 border-collapse:collapse;
 }
 
-td,th{
+th,td{
 border:1px solid #ddd;
 padding:8px;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -64,7 +60,6 @@ padding:8px;
 <h2>South Zone Meter Search</h2>
 
 <select id="division">
-
 <option value="">All Divisions</option>
 <option>CITY SUNAM</option>
 <option>DHURI</option>
@@ -72,10 +67,11 @@ padding:8px;
 <option>PATTRAN</option>
 <option>SANGRUR</option>
 <option>SUBURBAN SUNAM</option>
-
 </select>
 
 <input type="text" id="search" placeholder="Enter Meter / Account / Name / Mobile">
+
+<br>
 
 <button onclick="search()">Search</button>
 
@@ -91,11 +87,11 @@ fetch("sangrur_circle_meter_search_data.csv")
 .then(response=>response.text())
 .then(text=>{
 
-let rows=text.split("\n");
+let rows=text.split(/\r?\n/);
 
 for(let i=1;i<rows.length;i++){
 
-let cols = rows[i].split(",");
+let cols=rows[i].split(",");
 
 data.push(cols);
 
@@ -106,6 +102,7 @@ data.push(cols);
 function search(){
 
 let input=document.getElementById("search").value.toLowerCase();
+
 let division=document.getElementById("division").value.toLowerCase();
 
 let html="<table><tr><th>Account</th><th>Name</th><th>Address</th><th>Division</th><th>Meter</th><th>Mobile</th></tr>";
@@ -113,6 +110,7 @@ let html="<table><tr><th>Account</th><th>Name</th><th>Address</th><th>Division</
 for(let i=0;i<data.length;i++){
 
 let row=data[i].join(" ").toLowerCase();
+
 let div=data[i][3].toLowerCase();
 
 if(row.includes(input)){
@@ -145,5 +143,4 @@ document.getElementById("result").innerHTML=html;
 </script>
 
 </body>
-
 </html>
