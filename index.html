@@ -88,7 +88,7 @@ let rows=text.split("\n");
 
 for(let i=1;i<rows.length;i++){
 
-let cols=rows[i].split(",");
+let cols = rows[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
 
 data.push(cols);
 
